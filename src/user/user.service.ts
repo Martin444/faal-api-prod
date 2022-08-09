@@ -22,12 +22,6 @@ export class UserService {
     async createOfSocial(data: CreateUserDto) {
         const newUser = this.userRepo.create(data);
         console.log(newUser);
-        // if (data.customerId) {
-        //     const customer = await this.customerService.findOne(
-        //         data.customerId,
-        //     );
-        //     newUser.customer = customer;
-        // }
 
         return this.userRepo.save(newUser);
     }
