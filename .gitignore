@@ -3,6 +3,8 @@
 /node_modules
 /post_data
 
+.env
+
 # Logs
 logs
 *.log
