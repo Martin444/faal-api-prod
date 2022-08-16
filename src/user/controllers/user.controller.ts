@@ -27,7 +27,14 @@ export class UserController {
     @UseGuards(JwtAuthGuard)
     @Get('/me')
     async getProfile(@Req() req: Request) {
+        console.log(req['user']['userId'])
         return this.userService.findOne(req['user']['userId']);
+    }
+
+
+    @Post('admin/:email')
+    async getAdminUseremail(@Param('email') email: string) {
+        return this.userService.getadminUser(email);
     }
 
     @Patch(':id')

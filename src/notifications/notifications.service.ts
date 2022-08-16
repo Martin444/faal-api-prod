@@ -36,4 +36,8 @@ export class NotificationsService {
             throw new HttpException(error, 500);
         }
     }
+
+    async getAllNotifications() {
+        return this.notificationRepo.find();
+    }
 }
