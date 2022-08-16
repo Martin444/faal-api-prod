@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { CreateNotifyDto } from './dtos/create-notify.dto';
 import { NotificationsService } from './notifications.service';
@@ -11,5 +11,10 @@ export class NotificationsController {
     @Post()
     async create(@Body() createNotifyDto: CreateNotifyDto) {
         return this.notificationsService.create(createNotifyDto);
+    }
+
+    @Get()
+    async getAllNotifications() {
+        return this.notificationsService.getAllNotifications();
     }
 }

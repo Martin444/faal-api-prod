@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto, UpdateUserDto } from './dto/create-user.dto';
@@ -49,4 +49,19 @@ export class UserService {
     remove(id: number) {
         return this.userRepo.delete(id);
     }
+
+    async getadminUser(email: string) {
+
+        var user = await this.findByEmail(email);
+        if(!user) {
+            throw new HttpException('Users not found', 302);
+        }
+        user.role = 'admin';
+
+        await this.userRepo.save(user);
+
+        return {
+            message: 'User Admin success'
+        }
+    } 
 }
