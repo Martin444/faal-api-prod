@@ -13,7 +13,7 @@ export class AddressController {
     @UseGuards(JwtAuthGuard)
     @Get()
     async getAddress(@Req() req: Request) {
-        return this.addressService.getAddress('');
+        return this.addressService.getAddress(req['user']['userId']);
     }
 
     @UseGuards(JwtAuthGuard)
