@@ -25,7 +25,6 @@ export class AddressService {
         const newAddress = this.addressRepo.create(data);
         newAddress.id = uuidv4();
         newAddress.ownerId = userId;
-
         return this.addressRepo.save(newAddress);
     }
 

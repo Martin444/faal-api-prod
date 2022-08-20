@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { CategoriesModule } from './categories/categories.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
 import config from './config';
 import { DatabaseModule } from './database/database.module';
@@ -24,6 +25,7 @@ import { UserModule } from './user/user.module';
   UserModule,
   DatabaseModule,
   ProductsModule,
+  CategoriesModule,
   MercadopagoModule,
   NotificationsModule,
   CloudinaryModule,
