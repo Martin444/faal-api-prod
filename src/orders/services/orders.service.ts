@@ -282,6 +282,13 @@ export class OrdersService {
 
 
     async getAllMyOrders(userId: string) {
+        const userISAdmin = await this.userService.findOne(userId);
+
+        if(userISAdmin.role == 'admin'){
+            const myors = await this.orderRepo.find();
+
+            return await this.getCompleteOrderList(myors, userId);
+        }
         const myors = await this.orderRepo.find({ where:  { ownerId: userId }});
 
         return await this.getCompleteOrderList(myors, userId);
