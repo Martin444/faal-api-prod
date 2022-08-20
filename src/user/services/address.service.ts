@@ -32,4 +32,8 @@ export class AddressService {
         const address = await this.addressRepo.findOne({ where: { id } });
         return address;
     }
+
+    async deleteAlladdress() {
+        return await this.addressRepo.clear();
+    }
 }

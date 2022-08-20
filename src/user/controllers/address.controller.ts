@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
 import { CreateAddress } from '../dto/address.dto';
@@ -23,5 +23,10 @@ export class AddressController {
             address,
             req['user']['userId'],
         );
+    }
+
+    @Delete('/all')
+    async deleteAllAddress() {
+        return this.addressService.deleteAlladdress();
     }
 }
