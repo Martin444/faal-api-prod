@@ -289,7 +289,7 @@ export class OrdersService {
             if(userISAdmin.role == 'admin'){
                 const myors = await this.orderRepo.find();
     
-                return await this.getCompleteOrderList(myors, userId);
+                return await this.getCompleteOrderList(myors.slice(0,9), userId);
             }
             const myors = await this.orderRepo.find({ where:  { ownerId: userId }});
     
