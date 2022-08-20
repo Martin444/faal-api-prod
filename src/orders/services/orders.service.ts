@@ -282,16 +282,21 @@ export class OrdersService {
 
 
     async getAllMyOrders(userId: string) {
-        const userISAdmin = await this.userService.findOne(userId);
-
-        if(userISAdmin.role == 'admin'){
-            const myors = await this.orderRepo.find();
-
+        try {
+            const userISAdmin = await this.userService.findOne(userId);
+            console.log(userISAdmin)
+    
+            if(userISAdmin.role == 'admin'){
+                const myors = await this.orderRepo.find();
+    
+                return await this.getCompleteOrderList(myors, userId);
+            }
+            const myors = await this.orderRepo.find({ where:  { ownerId: userId }});
+    
             return await this.getCompleteOrderList(myors, userId);
+        } catch (error) {
+            throw new HttpException('hubo un error', 302);
         }
-        const myors = await this.orderRepo.find({ where:  { ownerId: userId }});
-
-        return await this.getCompleteOrderList(myors, userId);
        
     }
 
