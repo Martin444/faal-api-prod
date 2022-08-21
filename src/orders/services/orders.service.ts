@@ -287,7 +287,7 @@ export class OrdersService {
             console.log(userISAdmin)
     
             if(userISAdmin.role == 'admin'){
-                const myors = await this.orderRepo.find();
+                const myors = await this.orderRepo.find({  });
     
                 return await this.getCompleteOrderList(myors.slice(0,9), userId);
             }

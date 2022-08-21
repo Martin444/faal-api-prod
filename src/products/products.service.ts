@@ -1,5 +1,6 @@
 import { HttpService } from '@nestjs/axios';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Products } from './entity/product.entity';
 
 @Injectable()
 export class ProductsService {
@@ -43,7 +44,7 @@ export class ProductsService {
             return new Promise((resolve, reject) => {
                 this.httpService
                     .get(
-                        `https://faalsrl.com.ar/wp-json/wc/v3/products?search=promo`,
+                        `https://faalsrl.com.ar/wp-json/wc/v3/products?category=157`,
                         {
                             auth: {
                                 username: process.env.WP_USER,
@@ -115,29 +116,6 @@ export class ProductsService {
         return prods;
     }
 
-    async getOfers(): Promise<any> {
-        return new Promise((resolve, reject) => {
-            this.httpService
-                .get(
-                    `https://faalsrl.com.ar/wp-json/wc/v3/products?search=oferta`,
-                    {
-                        auth: {
-                            username: process.env.WP_USER,
-                            password: process.env.WP_PASSWORD,
-                        },
-                    },
-                )
-                .subscribe(
-                    (data) => {
-                        resolve(data.data);
-                    },
-                    (error) => {
-                        reject(error);
-                    },
-                );
-        });
-    }
-
     async getAllProducts(page: string) {
         try {
             const respon = await this.getoneListProduct(page);
@@ -148,9 +126,11 @@ export class ProductsService {
                 element.images.forEach((img) => {
                     imagesin.push(img.src);
                 });
+                
                 element.categories.forEach((cat) => {
                     categoriesin.push(cat.name);
                 });
+
                 const newPr = {
                     id: element.id,
                     name: element.name,
@@ -158,6 +138,7 @@ export class ProductsService {
                     regular_price: element.regular_price ?? 0,
                     sale_price: element.sale_price ?? 0,
                     categories: categoriesin,
+                    urlProduct: element.permalink,
                     images: imagesin,
                 };
                 prods.push(newPr);
@@ -171,9 +152,7 @@ export class ProductsService {
     async getAllPromotionsAndOfert() {
         try {
             const promotions = await this.getPromotions();
-            const ofets = await this.getOfers();
             const proms = [];
-            const ofers = [];
 
             promotions.forEach((element) => {
                 const imagesin = [];
@@ -185,6 +164,7 @@ export class ProductsService {
                 element.categories.forEach((cat) => {
                     categoriesin.push(cat.name);
                 });
+
                 const newPr = {
                     id: element.id,
                     name: element.name,
@@ -192,34 +172,13 @@ export class ProductsService {
                     regular_price: element.regular_price ?? 0,
                     sale_price: element.sale_price ?? 0,
                     categories: categoriesin,
+                    urlProduct: element.permalink,
                     images: imagesin,
                 };
                 proms.push(newPr);
             });
 
-            ofets.forEach((element) => {
-                const imagesin = [];
-                const categoriesin = [];
-                element.images.forEach((img) => {
-                    imagesin.push(img.src);
-                });
-
-                element.categories.forEach((cat) => {
-                    categoriesin.push(cat.name);
-                });
-                const newPr = {
-                    id: element.id,
-                    name: element.name,
-                    price: element.price ?? 0,
-                    regular_price: element.regular_price ?? 0,
-                    sale_price: element.sale_price ?? 0,
-                    categories: categoriesin,
-                    images: imagesin,
-                };
-                ofers.push(newPr);
-            });
-
-            return [...proms, ...ofers];
+            return [...proms];
         } catch (error) {
             throw new HttpException(error, error.status);
         }
@@ -274,6 +233,7 @@ export class ProductsService {
                     regular_price: element.regular_price ?? 0,
                     sale_price: element.sale_price ?? 0,
                     categories: categoriesin,
+                    urlProduct: element.permalink,
                     images: imagesin,
                 };
                 prods.push(newPr);
