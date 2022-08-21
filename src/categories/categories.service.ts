@@ -25,6 +25,7 @@ export class CategoriesService {
                             const categories = [];
                             if (data.data.length != 0) {
                                 data.data.forEach((element: any) => {
+                                    console.log(element);
                                     const newCat = {
                                         id: element.id,
                                         name: element.name,
