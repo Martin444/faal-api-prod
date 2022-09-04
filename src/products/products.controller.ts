@@ -26,4 +26,9 @@ export class ProductsController {
     async postbyCategorie(@Param('categorie') id: string) {
         return await this.productsService.productsByCategory(id);
     }
+
+    @Post('/relationate/:id')
+    async prodByRelatins(@Param('id') id: string) {
+        return await this.productsService.productsRelationated(id);
+    }
 }
