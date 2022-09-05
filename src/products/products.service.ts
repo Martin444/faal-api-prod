@@ -100,7 +100,10 @@ export class ProductsService {
             });
 
             element.categories.forEach((cat) => {
-                categoriesin.push(cat.name);
+                categoriesin.push({
+                    id: cat.id,
+                    name: cat.name,
+                });
             });
             const newPr = {
                 id: element.id,
@@ -128,7 +131,10 @@ export class ProductsService {
                 });
 
                 element.categories.forEach((cat) => {
-                    categoriesin.push(cat.name);
+                    categoriesin.push({
+                        id: cat.id,
+                        name: cat.name,
+                    });
                 });
 
                 const newPr = {
@@ -162,7 +168,10 @@ export class ProductsService {
                 });
 
                 element.categories.forEach((cat) => {
-                    categoriesin.push(cat.name);
+                    categoriesin.push({
+                        id: cat.id,
+                        name: cat.name,
+                    });
                 });
 
                 const newPr = {
@@ -224,7 +233,10 @@ export class ProductsService {
                 });
 
                 element.categories.forEach((cat) => {
-                    categoriesin.push(cat.name);
+                    categoriesin.push({
+                        id: cat.id,
+                        name: cat.name,
+                    });
                 });
                 const newPr = {
                     id: element.id,
@@ -246,7 +258,7 @@ export class ProductsService {
 
 
      // Productos relacionados
-     async getProductsRelatedFromAPI(idProd: string): Promise<any> {
+    async getProductsRelatedFromAPI(idProd: string): Promise<any> {
         try {
             return new Promise((resolve, reject) => {
                 this.httpService
@@ -285,7 +297,10 @@ export class ProductsService {
                 });
 
                 element.categories.forEach((cat) => {
-                    categoriesin.push(cat.name);
+                    categoriesin.push({
+                        id: cat.id,
+                        name: cat.name,
+                    });
                 });
                 const newPr = {
                     id: element.id,
