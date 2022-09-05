@@ -66,8 +66,7 @@ export class UserService {
     } 
 
     async deleteAllusers() {
-        var users = await this.userRepo.find({});
-        console.log(users);
+        var users = await this.userRepo.clear();
         return users;
     }
 }
