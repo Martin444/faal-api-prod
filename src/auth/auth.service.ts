@@ -1,6 +1,5 @@
 import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
-import { Client } from 'pg';
 import { UserService } from 'src/user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
@@ -8,7 +7,6 @@ import { CreateUserDto } from 'src/user/dto/create-user.dto';
 @Injectable()
 export class AuthService {
     constructor(
-        @Inject('DATABASE_CONNECTION') private clientpg: Client,
         private usersService: UserService,
         private jwtService: JwtService,
     ) {}
@@ -86,4 +84,6 @@ export class AuthService {
             access_token: this.jwtService.sign(payload),
         };
     }
+
+
 }

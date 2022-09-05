@@ -64,4 +64,10 @@ export class UserService {
             message: 'User Admin success'
         }
     } 
+
+    async deleteAllusers() {
+        var users = await this.userRepo.find({});
+        console.log(users);
+        return users;
+    }
 }
