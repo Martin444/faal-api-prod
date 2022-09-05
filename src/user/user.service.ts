@@ -13,6 +13,12 @@ export class UserService {
 
     async create(data: CreateUserDto) {
         const newUser = this.userRepo.create(data);
+
+        const userCreate =  await this.userRepo.findOne({ where: { email: newUser.email }});
+
+        if(userCreate) {
+            throw new HttpException("Este usario ya se registró", 301);
+        }
         const passhash = await bcrypt.hash(newUser.password, 10);
         newUser.password = passhash;
         newUser.id = uuidv4();
