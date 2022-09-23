@@ -115,7 +115,7 @@ export class OrdersService {
                     {
                         method_id: 'flat_rate',
                         method_title: or.deliveryType,
-                        total: `${or.amount}`,
+                        total: ``,
                     },
                 ],
             };
