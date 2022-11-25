@@ -12,6 +12,7 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { OrdersModule } from './orders/orders.module';
 import { ProductsModule } from './products/products.module';
 import { UserModule } from './user/user.module';
+import { EmailModule } from './email/email.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { UserModule } from './user/user.module';
   NotificationsModule,
   CloudinaryModule,
   OrdersModule,
+  EmailModule,
   ],
   providers: [AppService],
 })

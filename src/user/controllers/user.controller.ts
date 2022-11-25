@@ -14,15 +14,17 @@ import { UpdateUserDto } from '../dto/update-user.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
+import { PasswordService } from '../services/password/password.service';
+import { RecoveryPasswordDto } from '../dto/recovery-pass';
+import { ChangePasswordDto } from '../dto/change-password';
 
 @ApiTags('user')
 @Controller('user')
 export class UserController {
-    constructor(private readonly userService: UserService) {}
-    // @Get(':id')
-    // findOne(@Param('id') id: string) {
-    //     return this.userService.findOne(id);
-    // }
+    constructor(
+        private readonly userService: UserService,
+        private readonly passService: PasswordService,
+    ) {}
 
     @UseGuards(JwtAuthGuard)
     @Get('/me')
@@ -35,6 +37,16 @@ export class UserController {
     @Post('admin/:email')
     async getAdminUseremail(@Param('email') email: string) {
         return this.userService.getadminUser(email);
+    }
+
+    @Post('password')
+    async recoveryPassword(@Body() recoveryInfo: RecoveryPasswordDto) {
+        return this.passService.recoveryEmail(recoveryInfo);
+    }
+
+    @Post('change-password')
+    async changePassword(@Body() recoveryInfo: ChangePasswordDto) {
+        return this.passService.changePassword(recoveryInfo);
     }
 
     @Patch(':id')
