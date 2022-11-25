@@ -47,6 +47,11 @@ export class PasswordService {
                 message: 'password change',
             }
 
+        } else {
+            return {
+                error: true,
+                message: 'Error al actualizar contraseña'
+            }
         }
     }
 
